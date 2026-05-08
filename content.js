@@ -195,37 +195,36 @@ function transformPostList() {
 }
 
 function transformCommentPage() {
-  // Style the main post like an email subject header
-  const linkTitle = document.querySelector('.thing.link .title a');
-  if (!linkTitle) return;
+  document.documentElement.setAttribute('data-reddimail-comments', 'true');
 
-  const thing = linkTitle.closest('.thing.link');
+  const thing = document.querySelector('#siteTable .thing.link');
   if (!thing) return;
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'rm-email-header';
-
+  const titleEl  = thing.querySelector('a.title');
   const authorEl = thing.querySelector('a.author');
-  const subredditEl = thing.querySelector('a.subreddit');
-  const timeEl = thing.querySelector('time');
-  const scoreEl = thing.querySelector('.score');
+  const srEl     = thing.querySelector('a.subreddit');
+  const timeEl   = thing.querySelector('time');
+  const scoreEl  = thing.querySelector('.score');
+  const bodyEl   = thing.querySelector('.usertext-body');
+  const domainEl = thing.querySelector('.domain a');
 
-  wrapper.innerHTML = `
-    <div class="rm-email-subject">${linkTitle.textContent}</div>
+  const header = document.createElement('div');
+  header.className = 'rm-email-header';
+  header.innerHTML = `
+    <div class="rm-email-subject">${titleEl?.textContent?.trim() || '(untitled)'}</div>
     <div class="rm-email-meta">
-      <span class="rm-email-from">
-        ${authorEl ? `<strong>${authorEl.textContent}</strong>` : ''}
-        ${subredditEl ? `<span class="rm-email-sr">in ${subredditEl.textContent}</span>` : ''}
-      </span>
-      <span class="rm-email-time">${timeEl ? formatTime(timeEl.getAttribute('datetime')) : ''}</span>
-      <span class="rm-email-score">
-        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 2L8 8H3l4.5 4.5L6 18l6-3 6 3-1.5-5.5L21 8h-5z"/></svg>
-        ${scoreEl?.textContent?.trim() || ''}
-      </span>
+      ${authorEl ? `<span class="rm-email-chip">u/${authorEl.textContent.trim()}</span>` : ''}
+      ${srEl     ? `<a  class="rm-email-chip rm-email-chip-sr" href="${srEl.href}">${srEl.textContent.trim()}</a>` : ''}
+      ${scoreEl  ? `<span class="rm-email-chip">▲ ${scoreEl.textContent.trim()}</span>` : ''}
+      ${timeEl   ? `<span class="rm-email-chip">${formatTime(timeEl.getAttribute('datetime'))}</span>` : ''}
+      ${domainEl ? `<a class="rm-email-chip" href="${titleEl?.href || '#'}" target="_blank">${domainEl.textContent.trim()} ↗</a>` : ''}
     </div>
+    ${bodyEl ? `<div class="rm-email-body">${bodyEl.innerHTML}</div>` : ''}
   `;
 
-  thing.insertBefore(wrapper, thing.firstChild);
+  // Hide all original children, then append the styled header
+  Array.from(thing.children).forEach(child => { child.style.display = 'none'; });
+  thing.appendChild(header);
 }
 
 function init() {

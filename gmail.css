@@ -522,36 +522,6 @@ html[data-reddimail] .commentarea {
   overflow: hidden !important;
 }
 
-.rm-email-header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--rm-border);
-}
-
-.rm-email-subject {
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--rm-text);
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-
-.rm-email-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 13px;
-  color: var(--rm-muted);
-}
-
-.rm-email-from strong { color: var(--rm-text); }
-.rm-email-sr { color: var(--rm-blue); }
-
-.rm-email-score {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
 html[data-reddimail] .commentarea .comment {
   border-bottom: 1px solid var(--rm-border) !important;
   margin: 0 !important;
@@ -619,6 +589,68 @@ html[data-reddimail] .prev-button a:hover {
 /* ── MISC OVERRIDES ── */
 html[data-reddimail] a { color: var(--rm-blue) !important; }
 
-html[data-reddimail] #siteTable .thing.link:not(.promoted) *:not(.rm-row):not(.rm-row *) {
+/* Only hide original post children on listing pages, not on the comments page */
+html[data-reddimail]:not([data-reddimail-comments]) #siteTable .thing.link:not(.promoted) *:not(.rm-row):not(.rm-row *) {
   display: none !important;
+}
+
+/* ── COMMENTS PAGE: OP post header ── */
+.rm-email-header {
+  padding: 20px 24px 20px;
+}
+
+.rm-email-subject {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--rm-text);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.rm-email-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.rm-email-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #f1f3f4;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--rm-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.rm-email-chip-sr {
+  background: var(--rm-blue-light) !important;
+  color: var(--rm-blue) !important;
+}
+
+.rm-email-body {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rm-border);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--rm-text);
+}
+
+.rm-email-body p { margin: 0 0 10px; }
+.rm-email-body a { color: var(--rm-blue); }
+
+/* Wrap OP post in a card on comments page */
+html[data-reddimail][data-reddimail-comments] #siteTable .thing.link {
+  background: var(--rm-white) !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--rm-border) !important;
+  margin-bottom: 12px !important;
+  overflow: hidden !important;
+  display: block !important;
 }
