@@ -30,6 +30,8 @@ html[data-reddimail] body {
 }
 
 /* Hide everything we don't want */
+html[data-reddimail] .pagename,
+html[data-reddimail] .separator,
 html[data-reddimail] #header-bottom-left .pagename,
 html[data-reddimail] #header-bottom-left .separator,
 html[data-reddimail] #sr-header-area,
@@ -80,16 +82,16 @@ html[data-reddimail] #header-bottom-left {
   flex-shrink: 0 !important;
 }
 
-/* Hamburger-ish logo area */
+/* Mail envelope logo */
 html[data-reddimail] #header-bottom-left::before {
   content: '';
   display: inline-block;
-  width: 36px;
-  height: 36px;
-  background: var(--rm-red);
-  border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23ff4500'/%3E%3Cpath fill='white' d='M16.67 10a1.46 1.46 0 00-2.47-1 7.12 7.12 0 00-3.85-1.23l.65-3.07 2.13.45a1 1 0 101.07-1 1 1 0 00-.96.68l-2.38-.5a.27.27 0 00-.32.2l-.73 3.44a7.14 7.14 0 00-3.89 1.23 1.46 1.46 0 10-1.61 2.39 2.87 2.87 0 000 .44c0 2.24 2.61 4.06 5.83 4.06s5.83-1.82 5.83-4.06a2.87 2.87 0 000-.44 1.46 1.46 0 00.61-1.19zM7.27 11a1 1 0 111 1 1 1 0 01-1-1zm5.55 2.65a3.47 3.47 0 01-2.82.8 3.47 3.47 0 01-2.82-.8.27.27 0 01.38-.38 2.94 2.94 0 002.44.6 2.94 2.94 0 002.44-.6.27.27 0 01.38.38zm-.17-1.65a1 1 0 111-1 1 1 0 01-1 1z'/%3E%3C/svg%3E");
+  width: 32px;
+  height: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a73e8' d='M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E");
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   flex-shrink: 0;
 }
 
@@ -98,7 +100,7 @@ html[data-reddimail] #header-bottom-left a#header-img-a {
 }
 
 html[data-reddimail] #header-bottom-left::after {
-  content: 'Reddimail';
+  content: 'Mail';
   font-size: 22px !important;
   font-weight: 400 !important;
   color: #5f6368 !important;
@@ -173,19 +175,28 @@ html[data-reddimail] #header-bottom-right .user a:hover {
 }
 
 /* ── MAIN LAYOUT ── */
+html[data-reddimail] #page-container,
 html[data-reddimail] #content-container,
-html[data-reddimail] #siteTable_organic,
-html[data-reddimail] .content {
+html[data-reddimail] #siteTable_organic {
   margin: 0 !important;
   padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  float: none !important;
 }
 
+html[data-reddimail] .content,
 html[data-reddimail] #content {
   margin-top: var(--rm-header-h) !important;
   margin-left: var(--rm-nav-w) !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
   padding: 16px !important;
   min-height: calc(100vh - var(--rm-header-h)) !important;
   box-sizing: border-box !important;
+  max-width: none !important;
+  width: auto !important;
+  float: none !important;
 }
 
 /* ── LEFT NAV ── */
