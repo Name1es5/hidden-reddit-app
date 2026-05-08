@@ -47,32 +47,43 @@ function buildLeftNav() {
 
   const submitHref = document.querySelector('a[href*="/submit"]')?.href || '/submit';
 
+  // Detect current subreddit from URL
+  const srMatch = location.pathname.match(/^\/r\/([^/]+)/i);
+  const currentSr = srMatch ? srMatch[1] : null;
+  const base = currentSr ? `/r/${currentSr}` : '';
+
   nav.innerHTML = `
     <a class="rm-compose" href="${submitHref}">
       <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.21a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
       <span>Compose</span>
     </a>
+    ${currentSr ? `
+    <a class="rm-current-sr" href="/r/${currentSr}">
+      <span class="rm-current-sr-dot" style="background:${stringToColor(currentSr)}"></span>
+      <span class="rm-current-sr-name">r/${currentSr}</span>
+    </a>
+    ` : ''}
     <ul class="rm-nav-items">
-      <li class="rm-nav-item" data-sort="">
+      <li class="rm-nav-item" data-sort=""><a href="${base || '/'}">
         <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 3l5 5h-3v4h-4v-4H7l5-5z"/></svg>
         <span>Inbox</span>
-      </li>
-      <li class="rm-nav-item" data-sort="hot">
+      </a></li>
+      <li class="rm-nav-item" data-sort="hot"><a href="${base}/hot">
         <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M13.5 .67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
         <span>Hot</span>
-      </li>
-      <li class="rm-nav-item" data-sort="new">
+      </a></li>
+      <li class="rm-nav-item" data-sort="new"><a href="${base}/new">
         <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
         <span>New</span>
-      </li>
-      <li class="rm-nav-item" data-sort="rising">
+      </a></li>
+      <li class="rm-nav-item" data-sort="rising"><a href="${base}/rising">
         <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/></svg>
         <span>Rising</span>
-      </li>
-      <li class="rm-nav-item" data-sort="top">
+      </a></li>
+      <li class="rm-nav-item" data-sort="top"><a href="${base}/top">
         <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
         <span>Top</span>
-      </li>
+      </a></li>
     </ul>
     <div class="rm-section-label">Labels</div>
     <ul class="rm-labels-list" id="rm-labels"></ul>
