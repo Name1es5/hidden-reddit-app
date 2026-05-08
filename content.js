@@ -125,7 +125,7 @@ function transformPostList() {
   const things = document.querySelectorAll('#siteTable .thing.link:not(.promoted)');
 
   things.forEach(thing => {
-    const id = thing.id; // e.g. "thing_t3_abc123"
+    const id = thing.id;
 
     const titleEl = thing.querySelector('a.title');
     const authorEl = thing.querySelector('a.author');
@@ -184,7 +184,6 @@ function transformPostList() {
       <div class="rm-col-time">${formatTime(timeAttr)}</div>
     `;
 
-    // Click row → navigate to post
     row.addEventListener('click', e => {
       if (e.target.closest('.rm-col-check') || e.target.closest('.rm-col-star') || e.target.closest('.rm-col-comments')) return;
       markRead(id);
@@ -192,13 +191,11 @@ function transformPostList() {
       window.location.href = postHref;
     });
 
-    // Star toggle
     row.querySelector('.rm-star').addEventListener('click', e => {
       e.stopPropagation();
       e.currentTarget.classList.toggle('rm-starred');
     });
 
-    // Hide original Reddit elements, inject row
     Array.from(thing.children).forEach(child => child.style.display = 'none');
     thing.style.display = 'block';
     thing.appendChild(row);
@@ -225,7 +222,7 @@ function transformCommentPage() {
     <div class="rm-email-subject">${titleEl?.textContent?.trim() || '(untitled)'}</div>
     <div class="rm-email-meta">
       ${authorEl ? `<span class="rm-email-chip">u/${authorEl.textContent.trim()}</span>` : ''}
-      ${srEl     ? `<a  class="rm-email-chip rm-email-chip-sr" href="${srEl.href}">${srEl.textContent.trim()}</a>` : ''}
+      ${srEl     ? `<a class="rm-email-chip rm-email-chip-sr" href="${srEl.href}">${srEl.textContent.trim()}</a>` : ''}
       ${scoreEl  ? `<span class="rm-email-chip">▲ ${scoreEl.textContent.trim()}</span>` : ''}
       ${timeEl   ? `<span class="rm-email-chip">${formatTime(timeEl.getAttribute('datetime'))}</span>` : ''}
       ${domainEl ? `<a class="rm-email-chip" href="${titleEl?.href || '#'}" target="_blank">${domainEl.textContent.trim()} ↗</a>` : ''}
@@ -233,7 +230,6 @@ function transformCommentPage() {
     ${bodyEl ? `<div class="rm-email-body">${bodyEl.innerHTML}</div>` : ''}
   `;
 
-  // Hide all original children, then append the styled header
   Array.from(thing.children).forEach(child => { child.style.display = 'none'; });
   thing.appendChild(header);
 }
