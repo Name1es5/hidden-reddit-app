@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Reddimail",
+  "version": "1.0.0",
+  "description": "Reddit redesigned as Gmail — makes old.reddit.com look like your inbox",
+  "content_scripts": [
+    {
+      "matches": ["*://old.reddit.com/*"],
+      "css": ["gmail.css"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
