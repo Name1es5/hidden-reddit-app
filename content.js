@@ -11,7 +11,6 @@ function getReadSet() {
 function markRead(id) {
   const set = getReadSet();
   set.add(id);
-  // cap at 2000 entries
   const arr = Array.from(set).slice(-2000);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 }
@@ -66,7 +65,6 @@ function buildLeftNav() {
 
   const submitHref = document.querySelector('a[href*="/submit"]')?.href || '/submit';
 
-  // Detect current subreddit from URL
   const srMatch = location.pathname.match(/^\/r\/([^/]+)/i);
   const currentSr = srMatch ? srMatch[1] : null;
   const base = currentSr ? `/r/${currentSr}` : '';
@@ -108,7 +106,6 @@ function buildLeftNav() {
     <ul class="rm-labels-list" id="rm-labels"></ul>
   `;
 
-  // Populate subreddits as labels
   const srLinks = document.querySelectorAll('#sr-header-area a[href*="/r/"]');
   const labelsList = nav.querySelector('#rm-labels');
   const seen = new Set();
@@ -128,7 +125,6 @@ function buildLeftNav() {
 
   document.body.insertBefore(nav, document.body.firstChild);
 
-  // Highlight active sort
   const path = location.pathname;
   nav.querySelectorAll('.rm-nav-item').forEach(item => {
     const sort = item.dataset.sort;
@@ -145,7 +141,6 @@ function transformPostList() {
 
   things.forEach(thing => {
     const id = thing.id;
-
     const titleEl = thing.querySelector('a.title');
     const authorEl = thing.querySelector('a.author');
     const subredditEl = thing.querySelector('a.subreddit');
