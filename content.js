@@ -41,6 +41,25 @@ function formatTime(datetimeAttr) {
   }
 }
 
+function buildToggleButton() {
+  const btn = document.createElement('button');
+  btn.id = 'rm-nav-toggle';
+  btn.setAttribute('aria-label', 'Toggle navigation');
+  btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>`;
+
+  btn.addEventListener('click', () => {
+    const collapsed = document.documentElement.classList.toggle('rm-nav-collapsed');
+    localStorage.setItem('reddimail_nav_collapsed', collapsed ? '1' : '0');
+  });
+
+  const headerLeft = document.querySelector('#header-bottom-left');
+  if (headerLeft) headerLeft.appendChild(btn);
+
+  if (localStorage.getItem('reddimail_nav_collapsed') === '1') {
+    document.documentElement.classList.add('rm-nav-collapsed');
+  }
+}
+
 function buildLeftNav() {
   const nav = document.createElement('nav');
   nav.id = 'rm-leftnav';
@@ -236,6 +255,7 @@ function transformCommentPage() {
 
 function init() {
   document.documentElement.setAttribute('data-reddimail', 'true');
+  buildToggleButton();
   buildLeftNav();
 
   const isComments = document.body.classList.contains('comments-page');
