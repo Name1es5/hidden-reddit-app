@@ -60,7 +60,7 @@ function buildToggleButton() {
   }
 }
 
-
+function buildLeftNav() {
   const nav = document.createElement('nav');
   nav.id = 'rm-leftnav';
 
