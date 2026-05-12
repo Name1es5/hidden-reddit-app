@@ -82,6 +82,26 @@ html[data-reddimail] #header-bottom-left {
   flex-shrink: 0 !important;
 }
 
+/* Hamburger toggle */
+#rm-nav-toggle {
+  order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--rm-muted);
+  flex-shrink: 0;
+  transition: background .15s;
+  margin-right: 4px;
+}
+
+#rm-nav-toggle:hover { background: #f1f3f4; }
+
 /* Mail envelope logo */
 html[data-reddimail] #header-bottom-left::before {
   content: '';
@@ -211,6 +231,22 @@ html[data-reddimail] #content {
   padding: 8px 0;
   z-index: 100;
   box-sizing: border-box;
+  transition: transform .2s ease;
+}
+
+html.rm-nav-collapsed #rm-leftnav {
+  transform: translateX(-100%);
+}
+
+html[data-reddimail].rm-nav-collapsed .content,
+html[data-reddimail].rm-nav-collapsed #content {
+  margin-left: 0 !important;
+  transition: margin-left .2s ease;
+}
+
+html[data-reddimail]:not(.rm-nav-collapsed) .content,
+html[data-reddimail]:not(.rm-nav-collapsed) #content {
+  transition: margin-left .2s ease;
 }
 
 #rm-leftnav::-webkit-scrollbar { width: 4px; }
