@@ -221,6 +221,28 @@ html.bw-collapsed #bw-nav {
 
 /* ── COMMENTS PAGE ── */
 
+/* Show OP selftext body (hidden globally via .expando) */
+.comments-page .thing.link .expando {
+  display: block !important;
+}
+
+.comments-page .thing.link .usertext-body,
+.comments-page .thing.link .md {
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+  color: #111 !important;
+  margin: 8px 0 0 !important;
+}
+
+.comments-page .thing.link .md p  { margin: 0 0 8px !important; }
+.comments-page .thing.link .md a  { color: #333 !important; }
+.comments-page .thing.link .md blockquote {
+  border-left: 3px solid #ccc !important;
+  margin: 8px 0 8px 8px !important;
+  padding-left: 12px !important;
+  color: #555 !important;
+}
+
 /* OP post on comments page */
 .comments-page .thing.link {
   border-bottom: 2px solid #111 !important;
