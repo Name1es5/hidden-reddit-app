@@ -36,6 +36,15 @@ document.querySelectorAll('.promoted, .promoted-hover, .ads-container').forEach(
     document.documentElement.classList.add('bw-collapsed');
   }
 
+  // Trigger OP selftext expansion on comments pages — old Reddit lazily loads
+  // expando content on button click, so we fire it programmatically.
+  if (document.body.classList.contains('comments-page')) {
+    const expandoBtn = document.querySelector('.sitetable > .thing.link .expando-button');
+    if (expandoBtn && !expandoBtn.classList.contains('expanded')) {
+      expandoBtn.click();
+    }
+  }
+
   btn.addEventListener('click', function () {
     const collapsed = document.documentElement.classList.toggle('bw-collapsed');
     localStorage.setItem(NAV_KEY, collapsed ? '1' : '0');
